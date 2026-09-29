@@ -1,0 +1,186 @@
+@import "tailwindcss";
+
+@theme {
+  --color-forest: #0f5aa8;
+  --color-forest-deep: #0a3d73;
+  --color-cream: #f5f8fb;
+  --color-charcoal: #15202c;
+  --color-ink: #0b1520;
+  --font-display: "Anton", "Arial Black", sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-cream);
+  color: var(--color-charcoal);
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---- honor reduced-motion: kill entrance/parallax/float animations, show content ---- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .hero-in,
+  .hero-in-img,
+  .rise-in,
+  .rise-in-1,
+  .rise-in-2,
+  .rise-in-3,
+  .hero-title,
+  .hero-fore,
+  .hero-fade,
+  .floaty,
+  .floaty-2,
+  .floaty-3 {
+    animation: none !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.01em;
+}
+
+/* ---- hero entrance: blur + scale like the video ---- */
+@keyframes hero-in {
+  0% {
+    opacity: 0;
+    transform: scale(1.15);
+    filter: blur(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+.hero-in {
+  animation: hero-in 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.hero-in-img {
+  animation: hero-in 2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes rise-in {
+  0% {
+    opacity: 0;
+    transform: translateY(48px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.rise-in {
+  animation: rise-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.rise-in-1 {
+  animation-delay: 0.15s;
+}
+.rise-in-2 {
+  animation-delay: 0.3s;
+}
+.rise-in-3 {
+  animation-delay: 0.45s;
+}
+
+/* ---- floating cards: gentle hover like the video ---- */
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+.floaty {
+  animation: floaty 5s ease-in-out infinite;
+}
+.floaty-2 {
+  animation: floaty 6.5s ease-in-out 0.8s infinite;
+}
+.floaty-3 {
+  animation: floaty 7.5s ease-in-out 1.6s infinite;
+}
+
+/* ---- scroll reveal ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---- outlined ghost text ---- */
+.text-stroke {
+  -webkit-text-stroke: 1.5px rgba(250, 246, 240, 0.55);
+  color: transparent;
+}
+.text-stroke-dark {
+  -webkit-text-stroke: 1.5px rgba(26, 26, 26, 0.35);
+  color: transparent;
+}
+
+/* ---- glass cards ---- */
+.glass {
+  background: rgba(250, 246, 240, 0.14);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(250, 246, 240, 0.35);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+/* ---- dark list rows ---- */
+.dark-row {
+  transition:
+    background 0.3s ease,
+    padding 0.3s ease;
+}
+.dark-row:hover {
+  background: rgba(250, 246, 240, 0.06);
+}
+.dark-row:hover .row-title {
+  transform: translateX(12px);
+  color: #fff;
+}
+.row-title {
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.3s ease;
+}
+
+/* ---- hero: layered text-behind-trees entrance ---- */
+@keyframes heroTitleIn {
+  from { opacity: 0; transform: scale(1.18); filter: blur(16px); }
+  to { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+.hero-title { animation: heroTitleIn 1.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@keyframes heroForeIn {
+  from { opacity: 0; transform: translateY(120px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-fore { animation: heroForeIn 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both; }
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-fade { animation: heroFadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; }
